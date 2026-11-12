@@ -1,0 +1,28 @@
+# macOS / Linux
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+
+# 凭证与个人配置 —— 永不入库
+.env
+wechat.env
+*.env
+!*.env.example
+config.local.json
+~/.config/wechat-autopilot/
+
+# 事实基线（个人身份与数字）
+fact-baseline.md
+
+# 发布产物
+*.local-images.json
+article.json
+thumb.jpg
+cover_sheet.png
+ai-tone.json
+banned_word_audit_last.json
+
+# 临时
+tmp/
+*.log

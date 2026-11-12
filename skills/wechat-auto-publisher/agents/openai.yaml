@@ -1,0 +1,4 @@
+interface:
+  display_name: "公众号自动化发布"
+  short_description: "从 AI 热点到公众号草稿箱的自动化写作、封面和发布工作流。"
+  default_prompt: "根据今日 AI 热点写一篇公众号文章，生成封面，并发布到主号草稿箱。"

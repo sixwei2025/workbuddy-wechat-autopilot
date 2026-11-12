@@ -1,0 +1,219 @@
+#!/usr/bin/env python3
+import argparse
+import html
+import json
+import re
+from pathlib import Path
+
+
+def inline(text: str) -> str:
+    escaped = html.escape(text)
+    escaped = re.sub(r"\[([^\]]+)\]\((https?://[^\s)]+)\)", r'<a href="\2" style="color:#2563eb;">\1</a>', escaped)
+    return re.sub(
+        r"\*\*(.+?)\*\*",
+        r'<strong style="color:#2563eb;font-weight:700;">\1</strong>',
+        escaped,
+    )
+
+
+def body_lines(path: Path) -> list[str]:
+    lines = path.read_text(encoding="utf-8").splitlines()
+    for index, line in enumerate(lines):
+        if line.strip() in {"## 正文", "# 正文"}:
+            return lines[index + 1 :]
+    if lines and lines[0].strip() == "---":
+        for index in range(1, len(lines)):
+            if lines[index].strip() == "---":
+                return lines[index + 1:]
+        raise ValueError("Unclosed YAML frontmatter")
+    return lines
+
+
+P_BASE = "font-family:'PingFang SC',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;"
+P_STYLE = P_BASE + "font-size:16px;color:#3f3f3f;line-height:1.95;margin:0 20px 18px;"
+LEAD_STYLE = P_BASE + "font-size:16px;color:#2f3a4a;line-height:2;margin:0 20px 18px;"
+H2_WRAP_STYLE = "margin:36px 20px 16px;padding:0;"
+QUOTE_STYLE = P_BASE + "font-size:17px;color:#111827;line-height:1.9;margin:22px 20px;padding:16px 18px;background:#f3f7ff;border-left:4px solid #1677ff;border-radius:0 10px 10px 0;font-weight:700;"
+CARD_STYLE = P_BASE + "font-size:15px;color:#374151;line-height:1.85;margin:0 20px 12px;padding:12px 14px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;"
+CAPTION_STYLE = P_BASE + "font-size:13px;color:#8a8f98;text-align:center;line-height:1.6;margin:0 20px 22px;"
+SIGN_STYLE = P_BASE + "font-size:14px;color:#8a8f98;line-height:1.8;margin:30px 20px 0;text-align:right;"
+
+
+QUOTE_LINES = {
+    "客户买的从来不是软件。",
+    "客户买的是“终于有人把这件事给我弄明白了”。",
+    "先收资料，后做秩序。",
+    "工具再强，如果没有记忆，它也只是一个聪明的陌生人。",
+}
+
+
+def h2_html(title: str) -> str:
+    match = re.match(r"^(\d{2})\s*(.+)$", title)
+    if match:
+        number, text = match.groups()
+        return (
+            f'<h2 style="{H2_WRAP_STYLE}">'
+            f'<span style="display:inline-block;font-size:14px;color:#1677ff;font-weight:800;'
+            f'letter-spacing:1px;margin-right:8px;vertical-align:baseline;">{html.escape(number)}</span>'
+            f'<span style="{P_BASE}font-size:21px;line-height:1.45;color:#111827;font-weight:800;">'
+            f'{inline(text)}</span></h2>'
+        )
+    return (
+        f'<h2 style="{H2_WRAP_STYLE}">'
+        f'<span style="{P_BASE}font-size:21px;line-height:1.45;color:#111827;font-weight:800;">'
+        f'{inline(title)}</span></h2>'
+    )
+
+
+def image_html(image: str) -> str:
+    escaped = html.escape(image)
+    return (
+        f'<p style="text-align:center;margin:4px 20px 6px;">'
+        f'<img src="{escaped}" alt="正文配图" '
+        f'style="max-width:100%;height:auto;border-radius:10px;display:block;'
+        f'margin:8px auto 6px;border:1px solid #edf0f5;" /></p>'
+    )
+
+
+def paragraph_html(text: str, *, lead: bool = False) -> str:
+    style = LEAD_STYLE if lead else P_STYLE
+    return f'<p style="{style}">{inline(text)}</p>'
+
+
+def quote_html(text: str) -> str:
+    return f'<p style="{QUOTE_STYLE}">{inline(text)}</p>'
+
+
+def card_html(text: str) -> str | None:
+    match = re.match(r"^(第一|第二|第三|第四|第五|第一个门槛|第二个门槛|第三个门槛|第一档|第二档|第三档)，(.+)$", text)
+    if not match:
+        return None
+    label, rest = match.groups()
+    return (
+        f'<p style="{CARD_STYLE}"><span style="color:#1677ff;font-weight:800;">'
+        f'{html.escape(label)}</span>，{inline(rest)}</p>'
+    )
+
+
+def convert_markdown(lines: list[str], images: list[str] | None) -> str:
+    parts = [
+        f'<section style="{P_BASE}color:#3f3f3f;font-size:16px;line-height:1.95;">'
+    ]
+    images = images or []
+    image_index = 0
+    section_count = 0
+    in_intro = True
+    buffer: list[str] = []
+    quote: list[str] = []
+    code: list[str] = []
+    in_code = False
+    placed: set[str] = set()
+
+    def block(values: list[str]) -> None:
+        if values:
+            parts.append(f'<section style="{P_BASE}margin:20px;padding:14px;background:#f7f8fb;border:1px solid #e5e7eb;border-radius:8px;font-size:14px;line-height:1.8;white-space:pre-wrap;">'+html.escape("\n".join(values))+"</section>")
+            values.clear()
+
+    def flush() -> None:
+        nonlocal buffer
+        if not buffer:
+            return
+        text = "".join(buffer).strip()
+        buffer.clear()
+        if not text:
+            return
+        if text == "---":
+            parts.append('<hr style="border:none;border-top:1px solid #e5e7eb;margin:28px 20px;">')
+            return
+        card = card_html(text)
+        if card:
+            parts.append(card)
+        elif text in QUOTE_LINES:
+            parts.append(quote_html(text))
+        else:
+            parts.append(paragraph_html(text, lead=in_intro))
+
+    for raw in lines:
+        line = raw.strip()
+        if line.startswith("```"):
+            flush()
+            block(quote)
+            if in_code:
+                block(code)
+            in_code = not in_code
+            continue
+        if in_code:
+            code.append(raw)
+            continue
+        if line.startswith(">"):
+            flush()
+            quote.append(line[1:].lstrip())
+            continue
+        block(quote)
+        pic = re.fullmatch(r"!\[([^\]]*)\]\(([^\s)]+)\)|\[\[img:([^\]]+)\]\]", line)
+        if pic:
+            flush()
+            caption, source, legacy = pic.groups()
+            source = source or legacy
+            if source.startswith(("javascript:", "data:", "file:")):
+                raise ValueError("Unsupported image source")
+            parts.append(image_html(source))
+            placed.add(source)
+            if caption:
+                parts.append(f'<p style="{CAPTION_STYLE}">{inline(caption)}</p>')
+            continue
+        if not line or line.startswith("- ["):
+            flush()
+            continue
+        if line.startswith("# "):
+            continue
+        if line.startswith("## "):
+            flush()
+            in_intro = False
+            section_count += 1
+            title = line[3:].strip()
+            parts.append(h2_html(title))
+            continue
+        if re.match(r"^\d+\.\s+", line):
+            flush()
+            parts.append(f'<p style="{CARD_STYLE}">{inline(line)}</p>')
+            continue
+        buffer.append(line)
+    flush()
+    block(quote)
+    if in_code:
+        raise ValueError("Unclosed code fence")
+    unplaced = [src for src in images if src not in placed and Path(src).name not in {Path(p).name for p in placed}]
+    if unplaced:
+        raise ValueError("Images need explicit Markdown placement: " + ", ".join(unplaced))
+    parts.append("</section>")
+    return "\n".join(parts)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Convert a public-safe Markdown article into WeChat draft JSON.")
+    parser.add_argument("--md", required=True)
+    parser.add_argument("--title", required=True)
+    parser.add_argument("--author", default="袁六伟")
+    parser.add_argument("--digest", default="")
+    parser.add_argument("--source-url", default="")
+    parser.add_argument("--content-image", action="append", default=[])
+    parser.add_argument("--out", required=True)
+    args = parser.parse_args()
+
+    article = {
+        "title": args.title,
+        "author": args.author,
+        "digest": args.digest[:120],
+        "content": convert_markdown(body_lines(Path(args.md)), args.content_image),
+        "content_source_url": args.source_url,
+        "need_open_comment": 0,
+        "only_fans_can_comment": 0,
+        "pic_crop_235_1": "0_0_1_1",
+        "pic_crop_1_1": "0.287_0_0.713_1",
+    }
+    Path(args.out).write_text(json.dumps(article, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+if __name__ == "__main__":
+    main()
