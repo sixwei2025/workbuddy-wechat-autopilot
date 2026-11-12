@@ -13,6 +13,8 @@ Markdown → 公众号草稿 JSON 转换器（汇芯红六套骨架版）
     python3 markdown_to_wechat_article.py --md a.md --title T --theme journal --out a.json
     python3 markdown_to_wechat_article.py --list-themes
 """
+from __future__ import annotations
+
 import argparse
 import datetime
 import html

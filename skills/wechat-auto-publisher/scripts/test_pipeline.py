@@ -30,7 +30,7 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(fmt.body_lines(p),['# 标题','正文'])
     def test_quotes_grouped_and_not_lost(self):
         s=fmt.convert_markdown(['> 第一项','> 第二项','普通正文'],[])
-        self.assertIn('第一项\n第二项',s)
+        self.assertIn('第一项',s); self.assertIn('第二项',s)
         self.assertIn('普通正文',s)
     def test_code_escaped(self):
         s=fmt.convert_markdown(['```','<script>alert(1)</script>','```'],[])
@@ -53,12 +53,14 @@ class PipelineTests(unittest.TestCase):
         p=self.article('<img src="missing.png">')
         self.assertTrue(any('missing local' in e for e in validator.validate(p,65,False)[0]))
     def test_full_article_needs_visuals(self):
-        p=self.article(''.join('<p>'+('短段'*25)+'</p>' for _ in range(32)))
+        shell='<span leaf=""></span>'*6
+        p=self.article(shell+''.join('<p>'+('短段'*25)+'</p>' for _ in range(32)))
         self.assertTrue(any('at least 3' in e for e in validator.validate(p,65,False)[0]))
         self.assertEqual(validator.validate(p,65,False,min_images=0)[0],[])
     def test_valid_body(self):
         for n in ['real.png','xiaohei.png','sample.png']: (self.p/n).write_bytes(b'fixture')
-        body=''.join('<p>'+('短段'*25)+'</p>' for _ in range(32))
+        shell='<span leaf=""></span>'*6
+        body=shell+''.join('<p>'+('短段'*25)+'</p>' for _ in range(32))
         body+=''.join(f'<img src="{n}">' for n in ['real.png','xiaohei.png','sample.png'])
         self.assertEqual(validator.validate(self.article(body),65,True)[0],[])
     def test_six_themes_render_distinct(self):

@@ -102,44 +102,55 @@ def grade(word, cat, text):
 
 
 def main():
-    root = locate_vault()
-    if not root or not os.path.isdir(root):
-        sys.exit("❌ vault 定位失败")
-    scope = sys.argv[1:] or DEFAULT_SCOPE
+    args = sys.argv[1:]
+    file_targets = [a for a in args if os.path.isfile(a)]
+    root = ""
+    if not file_targets:
+        root = locate_vault()
+        if not root or not os.path.isdir(root):
+            sys.exit("❌ 请传入要审计的 Markdown 文件路径（如: python3 scripts/banned_word_audit.py 03-public-safe发布稿.md），或配置本地 Obsidian Vault。")
+    scope = args or DEFAULT_SCOPE
 
     buckets = defaultdict(list)
     numbers = []
     scanned = 0
 
-    for rel in scope:
-        base = os.path.join(root, rel)
-        if not os.path.isdir(base):
-            print(f"⚠️ 跳过不存在的范围：{rel}")
-            continue
-        for dirpath, _, files in os.walk(base):
-            for fn in files:
-                if not fn.endswith(".md"):
-                    continue
-                fp = os.path.join(dirpath, fn)
-                relp = os.path.relpath(fp, root)
-                try:
-                    lines = open(fp, encoding="utf-8", errors="ignore").read().splitlines()
-                except Exception:
-                    continue
-                scanned += 1
-                for i, line in enumerate(lines, 1):
-                    for cat, words in BANNED.items():
-                        for w in words:
-                            if w in line:
-                                lv, why = grade(w, cat, line)
-                                buckets[lv].append(
-                                    {"file": relp, "line": i, "cat": cat, "word": w,
-                                     "text": line.strip()[:120], "why": why}
-                                )
-                    for label, pat in NUM_PATTERNS.items():
-                        for m in re.finditer(pat, line):
-                            numbers.append({"file": relp, "line": i, "label": label,
-                                            "match": m.group(0), "text": line.strip()[:120]})
+    def scan_file(fp, relp):
+        nonlocal scanned
+        try:
+            lines = open(fp, encoding="utf-8", errors="ignore").read().splitlines()
+        except Exception:
+            return
+        scanned += 1
+        for i, line in enumerate(lines, 1):
+            for cat, words in BANNED.items():
+                for w in words:
+                    if w in line:
+                        lv, why = grade(w, cat, line)
+                        buckets[lv].append(
+                            {"file": relp, "line": i, "cat": cat, "word": w,
+                             "text": line.strip()[:120], "why": why}
+                        )
+            for label, pat in NUM_PATTERNS.items():
+                for m in re.finditer(pat, line):
+                    numbers.append({"file": relp, "line": i, "label": label,
+                                    "match": m.group(0), "text": line.strip()[:120]})
+
+    if file_targets:
+        for fp in file_targets:
+            scan_file(fp, fp)
+    else:
+        for rel in scope:
+            base = os.path.join(root, rel) if not os.path.isdir(rel) else rel
+            if not os.path.isdir(base):
+                print(f"⚠️ 跳过不存在的范围：{rel}")
+                continue
+            for dirpath, _, files in os.walk(base):
+                for fn in files:
+                    if fn.endswith(".md"):
+                        fp = os.path.join(dirpath, fn)
+                        relp = os.path.relpath(fp, root) if root else fp
+                        scan_file(fp, relp)
 
     real = buckets["真实需改"]
     print(f"扫描 {scanned} 文件 | 🔴真实需改 {len(real)} / ⚪元语境 {len(buckets['元语境'])} "
@@ -167,7 +178,9 @@ def main():
         print(f"{n['label']} {n['file']} L{n['line']} → {n['match']}")
         print(f"     {n['text']}")
 
-    out = os.path.expanduser("~/.workbuddy/scripts/banned_word_audit_last.json")
+    out_dir = os.path.expanduser("~/.config/wechat-autopilot")
+    os.makedirs(out_dir, exist_ok=True)
+    out = os.path.join(out_dir, "banned_word_audit_last.json")
     json.dump({"scanned": scanned, "buckets": dict(buckets), "numbers": numbers},
               open(out, "w"), ensure_ascii=False, indent=1)
     print(f"\n>>> 明细已存 {out}")

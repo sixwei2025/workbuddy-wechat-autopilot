@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from __future__ import annotations
+
 import argparse
 import json
 import re
@@ -168,7 +170,8 @@ def validate(article_path: Path, max_paragraph: int, require_xiaohei: bool | Non
     if missing:
         errors.append("missing local content images: " + ", ".join(missing[:8]))
 
-    need_xiaohei = requires_xiaohei(title, text) if require_xiaohei is None else require_xiaohei
+    # 2026-11-12 已废止小黑图要求；仅当调用方显式传 require_xiaohei=True 时才检查
+    need_xiaohei = bool(require_xiaohei)
     if need_xiaohei:
         xiaohei_count = sum("xiaohei" in Path(src).name.lower() or "小黑" in Path(src).name for src in imgs)
         if xiaohei_count < 1:
