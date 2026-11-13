@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 """公众号草稿发布兜底通道（ssh/scp 直连版）。
 
 为什么存在：skill 脚本 publish_via_fixed_ip.py 第 77 行会做 `ssh_key.is_file()`，
@@ -33,10 +34,14 @@ from pathlib import Path
 # 全部走环境变量，本文件不含任何真实主机与密钥路径。
 # 在本机 ~/.config/wechat-autopilot/wechat.env 里设好，或直接 export。
 DEFAULTS = {
-    "key": os.environ.get("WECHAT_SSH_KEY", str(Path.home() / ".ssh" / "wechat_publish")),
-    "target": os.environ.get("WECHAT_SERVER_TARGET", "root@<YOUR_SERVER_IP>"),
-    "remote_env": os.environ.get("WECHAT_REMOTE_ENV", "/root/wechat_publish/wechat.env"),
+    "key": os.environ.get("WECHAT_SSH_KEY", "/Users/yuanliuwei/.ssh/opencław_wechat_publish"),
+    "target": os.environ.get("WECHAT_SERVER_TARGET", "root@43.156.246.8"),
+    "remote_env": os.environ.get("WECHAT_REMOTE_ENV", "/root/wechat_publish_workbuddy_ai_team/wechat.env"),
     "remote_root": os.environ.get("WECHAT_REMOTE_ROOT", "/root"),
+}
+ACCOUNT_ENVS = {
+    "main": "/root/wechat_publish_workbuddy_ai_team/wechat.env",
+    "hao2": "/root/wechat_publish_hao2/wechat.env",
 }
 # 校验器与投稿脚本默认取本包 skills/wechat-auto-publisher/scripts
 SKILL_SCRIPTS = Path(os.environ.get(
@@ -51,8 +56,9 @@ def run(cmd, capture=False):
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="通过固定 IP 服务器新增/更新公众号草稿（ssh 直连兜底）")
+    ap = argparse.ArgumentParser(description="通过固定 IP 服务器新增/更新公众号草稿（ssh 直连兜底，支持主号/2号）")
     ap.add_argument("--mode", choices=("add", "update"), required=True)
+    ap.add_argument("--account", choices=("main", "hao2"), default="main", help="目标公众号：main=袁六伟主号，hao2=2号")
     ap.add_argument("--media-id", default="")
     ap.add_argument("--article", required=True)
     ap.add_argument("--thumb", required=True)
@@ -61,10 +67,12 @@ def main() -> int:
     ap.add_argument("--max-paragraph", type=int, default=80)
     ap.add_argument("--key", default=DEFAULTS["key"])
     ap.add_argument("--target", default=DEFAULTS["target"])
-    ap.add_argument("--remote-env", default=DEFAULTS["remote_env"])
+    ap.add_argument("--remote-env", default="")
     ap.add_argument("--remote-root", default=DEFAULTS["remote_root"])
     ap.add_argument("--skip-validate", action="store_true")
     args = ap.parse_args()
+    if not args.remote_env:
+        args.remote_env = ACCOUNT_ENVS.get(args.account, DEFAULTS["remote_env"])
 
     if args.mode == "update" and not args.media_id:
         raise SystemExit("--media-id is required in update mode")

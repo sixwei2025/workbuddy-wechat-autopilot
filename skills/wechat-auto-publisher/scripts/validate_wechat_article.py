@@ -173,11 +173,13 @@ def validate(article_path: Path, max_paragraph: int, require_xiaohei: bool | Non
     if len(text) >= 1500 and content.count('<span leaf="">') < 6:
         errors.append("missing theme shell: 主题专属开篇/目录/章节/END 未装配，跑 apply_theme_shell.py 后再发")
 
-    # 2026-11-13 袁总拍板：防「送什么卡 / 原件卡」臃肿硬闸
+    # 2026-11-13 袁总拍板：防「送什么卡 / 原件一二三」臃肿硬闸
+    if re.search(r"【(?:原件|Prompt|速查卡|命令卡)\s*\d*", content, flags=re.I):
+        errors.append("bloated takeaway card: 严禁出现「【原件 1/2/3】/【Prompt 1】」等拥挤标题框；配图已展示的内容禁止下方重复堆砌文字块")
     pre_blocks = re.findall(r'<section style="[^"]*white-space:pre-wrap[^"]*">(.*?)</section>', content, flags=re.S)
     bloated_pre = [len(strip_tags(b).strip()) for b in pre_blocks if len(strip_tags(b).strip()) > 320]
     if bloated_pre:
-        errors.append(f"bloated takeaway card: 发现超长 pre-wrap 灰框（{bloated_pre[0]} 字 > 320 字上限），请精简为 ≤5 行核心口令或自动转结构化卡片")
+        errors.append(f"bloated takeaway card: 发现超长 pre-wrap 灰框（{bloated_pre[0]} 字 > 320 字上限），请删掉与图片重复的文字框或精简为 1-3 行纯指令")
 
     imgs = image_sources(content)
     missing = [src for src in imgs if not local_image_exists(article_path, src)]

@@ -1,3 +1,4 @@
+from __future__ import annotations
 """Load v2/rules.yaml (single source of numeric rules)."""
 from pathlib import Path
 import yaml

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 # -*- coding: utf-8 -*-
 """
 袁氏改写判别标准 · 机械预检

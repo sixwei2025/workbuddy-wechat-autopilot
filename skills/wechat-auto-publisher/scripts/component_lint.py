@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 """组件库源头检查器（借鉴 gzh-design-skill 的 component_lint.py）
 
 扫描 references/*.md 里的 ```html 组件块，检测会导致公众号排版问题的反模式，

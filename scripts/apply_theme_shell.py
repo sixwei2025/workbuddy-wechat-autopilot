@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 """把 markdown_to_wechat_article.py 产出的「基础版式」补成完整骨架。
 
 转换器只负责 token 化版式；主题专属的开篇封面 / 目录 / 章节标题 / END

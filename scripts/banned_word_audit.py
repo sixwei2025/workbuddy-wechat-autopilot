@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 # -*- coding: utf-8 -*-
 """
 禁用词与数字口径审计器（三轮分级版）

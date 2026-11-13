@@ -17,10 +17,13 @@
 把一个选题跑成微信公众号草稿箱里的成品：**热点选题 → 选题决策 → Public-Safe 写稿 → 真实截图配图 → 封面渲染 → 六套骨架排版 → 三重机械硬闸 → 固定 IP 草稿投递 → 数据复盘**。
 
 ```bash
+<<<<<<< Updated upstream
 # 方式 A：通过 skills CLI 一键安装（推荐，自动识别 Claude Code / Cursor / Codex / WorkBuddy）
 npx skills add sixwei2025/workbuddy-wechat-autopilot
 
 # 方式 B：克隆仓库并运行环境初始化与自检脚本
+=======
+>>>>>>> Stashed changes
 git clone https://github.com/sixwei2025/workbuddy-wechat-autopilot.git wechat-autopilot
 cd wechat-autopilot && bash install.sh
 ```
@@ -149,6 +152,7 @@ cd wechat-autopilot && bash install.sh
 
 2026-11 起，本流水线**彻底废除 AI 插画 / 概念黑图充当正文配图**。正文配图只认两种高信任度交付物，且自动匹配当前文章所选的六套骨架皮肤：
 
+<<<<<<< Updated upstream
 > **① 真实实操截图卡（6 套皮肤）** — 带 `FIG` 编号、工具版本标、噪音裁切与图注，读者一眼看出「真跑过」：
 
 <p align="center">
@@ -160,6 +164,20 @@ cd wechat-autopilot && bash install.sh
 <p align="center">
   <img src="assets/showcase/08-stat-cards-six.png" alt="六套皮肤的数据总结卡对比" width="96%" />
 </p>
+=======
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="assets/showcase/07-shot-cards-six.png" alt="六套皮肤的实操截图卡对比" width="98%" />
+      <br /><sub><b>① 真实实操截图卡</b>：带 FIG 编号、工具版本标、噪音裁切与图注，读者一眼看出「真跑过」</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="assets/showcase/08-stat-cards-six.png" alt="六套皮肤的数据总结卡对比" width="98%" />
+      <br /><sub><b>② 结构化数据卡</b>：无界面可截的抽象关系/账目复盘，用高对比度排版卡呈现，随骨架换肤</sub>
+    </td>
+  </tr>
+</table>
+>>>>>>> Stashed changes
 
 ---
 
@@ -340,10 +358,17 @@ workbuddy-wechat-autopilot/
 | 仓库 | 定位 | 许可 |
 | :--- | :--- | :--- |
 | [**workbuddy-wechat-autopilot**](https://github.com/sixwei2025/workbuddy-wechat-autopilot) | WorkBuddy 公众号九步全链路自动化总控（本仓库） | 开源 |
+<<<<<<< Updated upstream
 | [**ai-auto-wechat-publisher**](https://github.com/sixwei2025/ai-auto-wechat-publisher) | AI 全自动化公众号八段式方法论与模板库 | MIT |
 | [**wechat-cover-skill**](https://github.com/sixwei2025/wechat-cover-skill) | 公众号封面渲染引擎（封面六套 + 黑红金 + 几何硬闸） | MIT |
 | [**gzh-million-layout-skill**](https://github.com/sixwei2025/gzh-million-layout-skill) | 公众号百万大号排版六套骨架 | MIT |
 | [**ai-tool-review-wechat-skill**](https://github.com/sixwei2025/ai-tool-review-wechat-skill) | 汇芯红六套排版骨架与 AI 工具测评工作流 | MIT |
+=======
+| [**wechat-cover-skill**](https://github.com/sixwei2025/wechat-cover-skill) | 公众号封面渲染引擎（封面六套 + 黑红金 + 几何硬闸） | MIT |
+| [**ai-tool-review-wechat-skill**](https://github.com/sixwei2025/ai-tool-review-wechat-skill) | 汇芯红六套排版骨架与 AI 工具测评工作流 | MIT |
+| [**3d-map-video-skill**](https://github.com/sixwei2025/3d-map-video-skill) | 3D 地图讲城市/历史/战争竖屏短视频全链路渲染引擎 | MIT |
+| [**talking-head-video-skill**](https://github.com/sixwei2025/talking-head-video-skill) | 真人口播短视频自动化包装与剪辑 Skill | MIT |
+>>>>>>> Stashed changes
 
 ---
 

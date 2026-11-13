@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 """Make a transparent portrait PNG from a plain-background photo WITHOUT eating a light shirt.
 
 v1 bug: edge flood-fill with color distance <= 48 from every edge (incl. bottom) removed the

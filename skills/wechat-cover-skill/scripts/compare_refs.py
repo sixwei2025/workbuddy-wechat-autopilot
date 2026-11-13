@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 """Side-by-side sheet: user's reference covers vs. new covers (all scaled to 900x383), with 200px thumbs.
 Usage: compare_refs.py --refs a.png b.png c.png --new x.jpg [y.jpg] --out sheet.png"""
 import argparse

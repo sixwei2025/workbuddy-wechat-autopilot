@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 """HD portrait cutout with proper matting + edge decontamination.
 
 1. 分割：rembg 生成软 mask（默认 isnet-general-use；birefnet-portrait 要约 5GB 内存，内存够时可用 --model 指定）
