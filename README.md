@@ -11,17 +11,19 @@
 [![Safety](https://img.shields.io/badge/Draft%20Only-只进草稿箱%20·%20绝不自动群发-059669?style=flat-square)](#八开源安全与诚实边界)
 
 > 🔴 **作者：袁六伟 · 台州汇芯**｜一人 AI 公司创业者，学员 7000+，客户 100+，得到 / 华为分享老师  
-> 📮 更多 AI 工具实测与自动化实战，关注 **公众号 / 视频号：袁六伟**  
-> 📌 **当前版本**：`v1.1.0`（2026-11-13）· 新增 6 套差异化封面构图版式 · 详见 [CHANGELOG.md](CHANGELOG.md)
+> 📮 更多 AI 工具实测与自动化实战，关注 **公众号 / 视频号：袁六伟**
 
 **不是「帮你写文章」的提示词合集，是一套能自动跑、自动审、自动排版的公众号生产系统。**  
 把一个选题跑成微信公众号草稿箱里的成品：**热点选题 → 选题决策 → Public-Safe 写稿 → 真实截图配图 → 封面渲染 → 六套骨架排版 → 三重自动质检 → 固定 IP 草稿投递 → 数据复盘**。
 
 ```bash
+<<<<<<< Updated upstream
 # 方式 A：通过 skills CLI 一键安装（推荐，自动识别 Claude Code / Cursor / Codex / WorkBuddy）
 npx skills add sixwei2025/workbuddy-wechat-autopilot
 
 # 方式 B：克隆仓库并运行环境初始化与自检脚本
+=======
+>>>>>>> Stashed changes
 git clone https://github.com/sixwei2025/workbuddy-wechat-autopilot.git wechat-autopilot
 cd wechat-autopilot && bash install.sh
 ```
@@ -124,17 +126,17 @@ https://github.com/sixwei2025/workbuddy-wechat-autopilot
 告别「五段金色渐变 + 3D 投影 + 红色径向光晕」的廉价电商风。内置 `render_cover_themes.py`（Python + Headless Chrome 渲染），同一篇 brief、同一张真人抠像，一键直出 6 套高客单价杂志封面：
 
 <p align="center">
-  <img src="assets/showcase/00-cover-layouts-v4.jpg" alt="六种空间构图封面总览：经典双栏、左人右文、Bento拼贴、居中C位、档案卡黑底、斜切海报" width="100%" />
+  <img src="assets/showcase/00-cover-six.jpg" alt="六套封面体系总览：午夜墨、纸本墨、牛皮纸、靛蓝瓷、瑞士蓝、汇芯红" width="100%" />
 </p>
 
-| 主题 ID | 名称 | 空间构图版式（`--layout`） | 底色 / 锚点色 | 适用题材 |
+| 主题 ID | 名称 | 底色 / 锚点色 | 人像处理策略 | 适用题材 |
 | :--- | :--- | :--- | :--- | :--- |
-| `brand` | **汇芯红** | `editorial-right`（经典左文右人 + IP 印章） | `#FAF7F4` / `#C8102E` 品牌红 | 通用主力，与正文汇芯红排版视觉完全一致 |
-| `paper` | **纸本墨** | `portrait-left`（左人右文反转 + 顶通黑条报头） | `#F1EFEA` / `#C8102E` 汇芯红 | 方法论、核心观点、体系化教程 |
-| `swiss` | **瑞士蓝** | `bento-grid`（Bento 三格圆角卡片拼贴） | `#EFF1F5` / `#002FA7` 克莱因蓝 | 行业发布、工具清单、对比评测表 |
-| `midnight` | **午夜墨** | `center-hero`（人物正中 C 位 + 左右分列） | `#0B0B0D` / `#D4A04A` 暖金 | 带硬数字的结果复盘、搞钱算账、深夜深度长文 |
-| `kraft` | **牛皮纸** | `card-black-split`（左米白档案卡 + 右纯黑大字） | `#0E0E10` + `#F3E7D3` / `#C8102E` | 个人经历、创业踩坑、案例故事复盘 |
-| `indigo` | **靛蓝瓷** | `diagonal-cut`（11° 斜切双色海报） | `#F3F5F8` + `#132A4A` / `#C8102E` | AI 工具实测、产品发布、技术方案拆解 |
+| `midnight` | **午夜墨** | `#0E0D0C` / `#D4A04A` 暖金 | 按亮度选择性压暗（白 T 压成中灰、脸部高光保住） | 带硬数字的结果复盘、搞钱算账、深夜深度长文 |
+| `paper` | **纸本墨** | `#F1EFEA` / `#0A0A0B` 纯墨 | 低饱和彩照（保留肤色血色，只压艳度） | 方法论、核心观点、体系化教程 |
+| `kraft` | **牛皮纸** | `#EEDFC7` / `#9B5A2E` 焦糖 | 暖调低饱和（复古感靠纸底色，不靠抽色） | 个人经历、创业踩坑、故事复盘 |
+| `indigo` | **靛蓝瓷** | `#F1F3F5` / `#315D93` 靛蓝 | 冷调半去饱和 | AI 工具实测、产品发布、技术方案拆解 |
+| `swiss` | **瑞士蓝** | `#FAFAF8` / `#002FA7` 克莱因蓝 | 低饱和彩照 + 顶部 26px 瑞士蓝横条 | 行业发布、工具清单、对比评测表 |
+| `brand` | **汇芯红** | `#FAF7F4` / `#C7352D` 品牌红 | 原色彩照轻压暗 | 通用主力，与正文汇芯红排版视觉完全一致 |
 
 > **🔴 三条写进代码的封面造型原则：**
 > 1. **真人照片绝不做纯黑白**：中文语境里纯黑白真人照极其诡异，代码层面已移除 `bw` 模式，统一用「低饱和 + 纸感底 + 大留白」做高级感。
