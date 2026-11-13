@@ -1,6 +1,7 @@
 ---
 name: ai-trending-topics
 description: 为公众号挖掘AI领域真实爆款选题（V1.5 Tavily驱动版）。当用户说"找选题"、"热点内容"、"爆款分析"、"公众号选题"、"AI热点"、"本周写什么"、"今天的AI爆款"时必须立即使用此Skill。使用Tavily工具抓取知乎专栏全文+公众号转载+微博热搜+小红书博主画像，识别真实异常值，输出可直接喂给 khazix-writing-style 的选题任务包。核心升级：替换失效的web_search平台搜索，改用Tavily真实抓取知乎/公众号/博客全文。
+version: 1.0.0
 author: 袁六伟 · 台州汇芯（公众号/视频号：袁六伟）
 ---
 

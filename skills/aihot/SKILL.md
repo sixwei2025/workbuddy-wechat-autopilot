@@ -5,6 +5,7 @@ license: MIT. See LICENSE
 metadata:
   author: Virxact
   version: "1.1.2"
+version: 1.0.0
 author: 袁六伟 · 台州汇芯（公众号/视频号：袁六伟）
 ---
 
