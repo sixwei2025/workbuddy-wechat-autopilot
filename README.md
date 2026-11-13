@@ -11,19 +11,17 @@
 [![Safety](https://img.shields.io/badge/Draft%20Only-只进草稿箱%20·%20绝不自动群发-059669?style=flat-square)](#八开源安全与诚实边界)
 
 > 🔴 **作者：袁六伟 · 台州汇芯**｜一人 AI 公司创业者，学员 7000+，客户 100+，得到 / 华为分享老师  
-> 📮 更多 AI 工具实测与自动化实战，关注 **公众号 / 视频号：袁六伟**
+> 📮 更多 AI 工具实测与自动化实战，关注 **公众号 / 视频号：袁六伟**  
+> 📌 **当前版本**：`v1.1.0`（2026-11-13）· 新增 6 套差异化封面构图版式 · 详见 [CHANGELOG.md](CHANGELOG.md)
 
 **不是「帮你写文章」的提示词合集，是一套能自动跑、自动审、自动排版的公众号生产系统。**  
 把一个选题跑成微信公众号草稿箱里的成品：**热点选题 → 选题决策 → Public-Safe 写稿 → 真实截图配图 → 封面渲染 → 六套骨架排版 → 三重自动质检 → 固定 IP 草稿投递 → 数据复盘**。
 
 ```bash
-<<<<<<< Updated upstream
 # 方式 A：通过 skills CLI 一键安装（推荐，自动识别 Claude Code / Cursor / Codex / WorkBuddy）
 npx skills add sixwei2025/workbuddy-wechat-autopilot
 
 # 方式 B：克隆仓库并运行环境初始化与自检脚本
-=======
->>>>>>> Stashed changes
 git clone https://github.com/sixwei2025/workbuddy-wechat-autopilot.git wechat-autopilot
 cd wechat-autopilot && bash install.sh
 ```
