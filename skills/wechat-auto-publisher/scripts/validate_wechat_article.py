@@ -112,6 +112,14 @@ def validate(article_path: Path, max_paragraph: int, require_xiaohei: bool | Non
         r'(<section style="[^"]*white-space:pre-wrap[^"]*">).*?(</section>)',
         r"\1\2", content, flags=re.S,
     )
+    masked = re.sub(
+        r'(<section data-takeaway="1"[^>]*>).*?(</section>\s*</section>)',
+        r"\1\2", masked, flags=re.S,
+    )
+    masked = re.sub(
+        r"(<table\b[^>]*>).*?(</table>)",
+        r"\1\2", masked, flags=re.S | re.I,
+    )
     _FORBIDDEN = [
         (re.compile(r"</?div[\s>]", re.I), "禁止使用 <div>，请改用 <section>"),
         (re.compile(r"\sclass\s*=", re.I), "存在 class 属性（公众号会剥离，请改用内联 style）"),
@@ -164,6 +172,12 @@ def validate(article_path: Path, max_paragraph: int, require_xiaohei: bool | Non
     # 转换器只出「基础版式」，漏跑 apply_theme_shell.py 会把六套骨架排成同一套普通正文。
     if len(text) >= 1500 and content.count('<span leaf="">') < 6:
         errors.append("missing theme shell: 主题专属开篇/目录/章节/END 未装配，跑 apply_theme_shell.py 后再发")
+
+    # 2026-11-13 袁总拍板：防「送什么卡 / 原件卡」臃肿硬闸
+    pre_blocks = re.findall(r'<section style="[^"]*white-space:pre-wrap[^"]*">(.*?)</section>', content, flags=re.S)
+    bloated_pre = [len(strip_tags(b).strip()) for b in pre_blocks if len(strip_tags(b).strip()) > 320]
+    if bloated_pre:
+        errors.append(f"bloated takeaway card: 发现超长 pre-wrap 灰框（{bloated_pre[0]} 字 > 320 字上限），请精简为 ≤5 行核心口令或自动转结构化卡片")
 
     imgs = image_sources(content)
     missing = [src for src in imgs if not local_image_exists(article_path, src)]
