@@ -124,7 +124,7 @@ https://github.com/sixwei2025/workbuddy-wechat-autopilot
 告别「五段金色渐变 + 3D 投影 + 红色径向光晕」的廉价电商风。内置 `render_cover_themes.py`（Python + Headless Chrome 渲染），同一篇 brief、同一张真人抠像，一键直出 6 套高客单价杂志封面：
 
 <p align="center">
-  <img src="assets/showcase/00-cover-six.jpg" alt="六套封面体系总览：午夜墨、纸本墨、牛皮纸、靛蓝瓷、瑞士蓝、汇芯红" width="100%" />
+  <img src="assets/showcase/00-cover-layouts-v3.jpg" alt="六套封面体系总览：午夜墨、纸本墨、牛皮纸、靛蓝瓷、瑞士蓝、汇芯红" width="100%" />
 </p>
 
 | 主题 ID | 名称 | 默认构图版式（`--layout`） | 底色 / 锚点色 | 适用题材 |
