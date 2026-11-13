@@ -3,18 +3,18 @@
 <img src="assets/showcase/hero-banner.jpg" alt="WorkBuddy 公众号全链路自动化 Skill — 一句话，跑完公众号九步流水线" width="100%" />
 
 # WorkBuddy 公众号全链路自动化 Skill
-### `wechat-autopilot` · 从热点选题到微信草稿箱成品的九步硬闸工程系统
+### `wechat-autopilot` · 从热点选题到微信草稿箱成品的九步全自动工作流
 
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Specification-C8102E?style=flat-square)](https://agentskills.io)
 [![Runtime](https://img.shields.io/badge/Runtime-WorkBuddy%20·%20Claude%20Code%20·%20Codex%20·%20Cursor-18181B?style=flat-square)](#七3-分钟安装与首次配置)
-[![Pipeline](https://img.shields.io/badge/Pipeline-9%20Stages%20·%209%20Sub--Skills%20·%2022%20Scripts-B45309?style=flat-square)](#三九步硬闸流水线怎么跑的)
+[![Pipeline](https://img.shields.io/badge/Pipeline-9%20Stages%20·%209%20Sub--Skills%20·%2022%20Scripts-B45309?style=flat-square)](#三九步全自动流水线怎么跑的)
 [![Safety](https://img.shields.io/badge/Draft%20Only-只进草稿箱%20·%20绝不自动群发-059669?style=flat-square)](#八开源安全与诚实边界)
 
 > 🔴 **作者：袁六伟 · 台州汇芯**｜一人 AI 公司创业者，学员 7000+，客户 100+，得到 / 华为分享老师  
 > 📮 更多 AI 工具实测与自动化实战，关注 **公众号 / 视频号：袁六伟**
 
-**不是「帮你写文章」的提示词合集，是一套能跑、能审、能拦的工程系统。**  
-把一个选题跑成微信公众号草稿箱里的成品：**热点选题 → 选题决策 → Public-Safe 写稿 → 真实截图配图 → 封面渲染 → 六套骨架排版 → 三重机械硬闸 → 固定 IP 草稿投递 → 数据复盘**。
+**不是「帮你写文章」的提示词合集，是一套能自动跑、自动审、自动排版的公众号生产系统。**  
+把一个选题跑成微信公众号草稿箱里的成品：**热点选题 → 选题决策 → Public-Safe 写稿 → 真实截图配图 → 封面渲染 → 六套骨架排版 → 三重自动质检 → 固定 IP 草稿投递 → 数据复盘**。
 
 ```bash
 <<<<<<< Updated upstream
@@ -28,7 +28,7 @@ git clone https://github.com/sixwei2025/workbuddy-wechat-autopilot.git wechat-au
 cd wechat-autopilot && bash install.sh
 ```
 
-[看成品效果](#一看成品效果) · [五个口令](#二五个口令说人话直接驱动) · [九步流水线](#三九步硬闸流水线怎么跑的) · [封面与排版体系](#四视觉系统6-套封面--6-套排版骨架) · [三重校验硬闸](#五质量护城河为什么它写出来不像-ai-塑料文) · [安装配置](#七3-分钟安装与首次配置)
+[看成品效果](#一看成品效果) · [五个口令](#二五个口令说人话直接驱动) · [九步流水线](#三九步全自动流水线怎么跑的) · [封面与排版体系](#四视觉系统6-套封面--6-套排版骨架) · [三重自动质检](#五质量护城河为什么它写出来不像-ai-塑料文) · [安装配置](#七3-分钟安装与首次配置)
 
 </div>
 
@@ -37,9 +37,9 @@ cd wechat-autopilot && bash install.sh
 ## 一、看成品效果
 
 以前写一篇公众号：开六个窗口、查热点、抠字眼、手动调行距、逐张截屏传图、做封面、去后台点二十次。  
-现在：**跟 Agent 说一句「写篇关于 XX 的文章，发主号草稿箱」，然后看它过完九道闸，把成品推到微信后台草稿箱。**
+现在：**跟 Agent 说一句「写篇关于 XX 的文章，发主号草稿箱」，然后看它跑完九步流程，把成品推到微信后台草稿箱。**
 
-真正省掉的不是打字时间，是**每次都要重新交代一遍的那些规矩**——段落不能超 80 字、红色锚点只能点 3–6 处、封面人像绝不做黑白且不能压脸、广告法禁用词零命中、投递后必须回读 CDN 图片防破图。这些规矩现在全部写进了脚本和硬闸里，不靠人脑记。
+真正省掉的不是打字时间，是**每次都要重新交代一遍的那些规矩**——段落不能超 80 字、红色锚点只能点 3–6 处、封面人像绝不做黑白且不能压脸、广告法禁用词零命中、投递后必须回读 CDN 图片防破图。这些规矩现在全部写进了自动化脚本和质检规则里，不靠人脑记。
 
 ### 1.1 真实成稿切片（375px 手机视口直出）
 
@@ -53,7 +53,7 @@ cd wechat-autopilot && bash install.sh
     </td>
     <td width="50%" align="center">
       <img src="assets/showcase/10-article-slice-3.png" alt="成品切片2：PART章节红标、40-60字呼吸感短段落与验收三件套数据卡" width="96%" />
-      <br /><sub><b>▲ 正文推进</b>：2–3 行短段落（≤80 字硬闸）+ 章节红标锚点 + 关键判断数据卡</sub>
+      <br /><sub><b>▲ 正文推进</b>：2–3 行短段落（每段≤80字）+ 章节红标锚点 + 关键判断数据卡</sub>
     </td>
   </tr>
 </table>
@@ -67,30 +67,30 @@ cd wechat-autopilot && bash install.sh
 | 你对 Agent 说 | 触发范围 | 交付给你的东西 |
 | :--- | :--- | :--- |
 | **「今日日报」** | 第 1 步 | 抓取 24h AI 热点与爆款异常值，出 **3 个有真实材料支撑的选题候选 + Top1 推荐 + 每个 6 条标题 + 风险提示**（只出选题，不写稿） |
-| **「写文章」** | 第 1–7 步 | 建好标准六件套工作台，完成正文、真实截图卡、封面、六套骨架装配，并跑完**结构 / AI 味 / 禁用词三重硬闸**，停在本地成品等你检阅 |
+| **「写文章」** | 第 1–7 步 | 建好标准六件套工作台，完成正文、真实截图卡、封面、六套骨架装配，并跑完**结构 / 去 AI 味 / 禁用词三重自动质检**，停在本地成品等你检阅 |
 | **「发主号草稿箱」** | 第 1–8 步 | 一路跑通并通过固定 IP 出口推入微信公众号后台草稿箱（**这句话本身即授权**，自动查重 `add/update`，回读 `media_id` 与 CDN 图片） |
 | **「修改这篇」** | 原位更新 | 在原工作台目录修改，查重定位原 `media_id` 直接更新，保留旧版备份，**绝不新建重复草稿** |
 | **「复盘一下」** | 第 9 步 | 读取真实后台导出数据，按同时间窗口（24h / 72h / 7d）对照中位数，输出下一篇**单变量可验证改动假设** |
 
 ---
 
-## 三、九步硬闸流水线（怎么跑的）
+## 三、九步全自动流水线（怎么跑的）
 
 <p align="center">
-  <img src="assets/showcase/pipeline-architecture.jpg" alt="九步硬闸流水线架构图" width="100%" />
+  <img src="assets/showcase/pipeline-architecture.jpg" alt="九步全自动流水线架构图" width="100%" />
 </p>
 
-本仓库的核心设计哲学是：**闸不过就停在这一步，绝不带病往下走**。每一环都明确规定了「谁执行、出什么交付物、过哪道硬闸」：
+本仓库的核心设计理念是：**一步不过就停在当步修正，绝不带病往下走**。每一环都明确规定了「谁执行、出什么交付物、按什么标准把关」：
 
-| 步 | 环节 | 执行模块 / 脚本 | 交付物 | 拦截硬闸（不过直接打回） |
+| 步 | 环节 | 执行模块 / 脚本 | 交付物 | 质量把关标准（不过直接打回） |
 | :---: | :--- | :--- | :--- | :--- |
 | **01** | **选题与日报** | `skills/aihot` → `ai-trending-topics` → `content-planner` | `01-选题卡.md`（3 候选 + 各 6 标题） | 资料不足先缩承诺，严禁靠夸张标题补救无证据选题 |
 | **02** | **建发布工作台** | `create_wechat_article_workspace.py` | `01选题`..`06复盘` 标准六件套目录 | 改稿必须走原目录，不许重复新建工作台 |
 | **03** | **Public-Safe 正文** | `skills/yuanliuwei-writer` + `fact-baseline.md` | `03-public-safe发布稿.md` | 必含 1 个可带走成果；外部案例统一「我有一个朋友」；**正文零引流、禁用词零命中** |
 | **04** | **真实截图配图** | `skills/article-illustrator` + 实操截图卡/数据卡 | 8–14 张真实截图与数据卡 | **禁用 AI 插画充当配图**；裁除价格与无关边栏；隐私必打码；出图后必读实际像素防破图 |
-| **05** | **封面与缩略图** | `skills/wechat-cover-skill` (`render_cover_themes.py`) | 2350×1000 母版 + 900×383 横图 + 1:1 方图 + `cover_sheet.png` | **几何硬闸自动量 DOM**：压脸 / 越过 1:1 裁切线 / 缺脸直接 `exit 2` 重渲；必检 200px 缩略图 |
+| **05** | **封面与缩略图** | `skills/wechat-cover-skill` (`render_cover_themes.py`) | 2350×1000 母版 + 900×383 横图 + 1:1 方图 + `cover_sheet.png` | **版面防遮挡自动校验**：压脸 / 越过 1:1 裁切线 / 缺脸直接 `exit 2` 重渲；必检 200px 缩略图 |
 | **06** | **六套骨架排版** | `skills/wechat-formatter` + `apply_theme_shell.py` | `article.local-images.json` (内联 CSS HTML) | 按内容结构选骨架（不按星期轮换）；**必跑 `apply_theme_shell.py` 补齐开篇/目录/END** |
-| **07** | **三重机械硬闸** | `validate_wechat_article.py` + `check_ai_tone.py` + `banned_word_audit.py` | 结构校验 + `ai-tone.json` + 禁用词审计 | 段落 ≤80 字；**翻案句 ≤2、结论冒号 ≤6、顿号连排 ≤4**；广告法极限词 = 0 |
+| **07** | **三重自动质检** | `validate_wechat_article.py` + `check_ai_tone.py` + `banned_word_audit.py` | 结构校验 + `ai-tone.json` + 禁用词审计 | 段落 ≤80 字；**翻案句 ≤2、结论冒号 ≤6、顿号连排 ≤4**；广告法极限词 = 0 |
 | **08** | **固定 IP 投草稿箱** | `publish_wechat_via_ssh.py` / `find_draft_via_fixed_ip.py` | 微信后台草稿 + `media_id` | 先查重再 `update/add`；遇腾讯 WAF 501 自动走删旧重加；**回执 ok 后必验 CDN 图** |
 | **09** | **记录与复盘** | `05-草稿箱发布记录.md` + `06-发布复盘.md` | 投递档案 + 同窗口数据复盘 | 仅在有真实后台数据时执行复盘；缺失指标一律写「不可得」，绝不填 0 或编造表现 |
 
@@ -100,7 +100,7 @@ cd wechat-autopilot && bash install.sh
 
 好公众号第一眼看封面，第二眼看排版呼吸感，第三眼看配图真不真。本仓库把这三件事全部做成了**确定性代码渲染**。
 
-### 4.1 封面六套（Editorial 编辑设计范式 + 几何硬闸）
+### 4.1 封面六套（Editorial 编辑设计范式 + 防压脸自动校验）
 
 告别「五段金色渐变 + 3D 投影 + 红色径向光晕」的廉价电商风。内置 `render_cover_themes.py`（Python + Headless Chrome 渲染），同一篇 brief、同一张真人抠像，一键直出 6 套高客单价杂志封面：
 
@@ -117,10 +117,10 @@ cd wechat-autopilot && bash install.sh
 | `swiss` | **瑞士蓝** | `#FAFAF8` / `#002FA7` 克莱因蓝 | 低饱和彩照 + 顶部 26px 瑞士蓝横条 | 行业发布、工具清单、对比评测表 |
 | `brand` | **汇芯红** | `#FAF7F4` / `#C7352D` 品牌红 | 原色彩照轻压暗 | 通用主力，与正文汇芯红排版视觉完全一致 |
 
-> **🔴 三条写进代码的封面造型铁律：**
+> **🔴 三条写进代码的封面造型原则：**
 > 1. **真人照片绝不做纯黑白**：中文语境里纯黑白真人照极其诡异，代码层面已移除 `bw` 模式，统一用「低饱和 + 纸感底 + 大留白」做高级感。
 > 2. **字号越大、字重越轻**：主标题 150px / 500 字重，数字行 184px / **400 字重**——这是杂志风与廉价信息图横幅的分水岭。
-> 3. **几何硬闸自动拦截（`exit 2`）**：渲染时自动测量 DOM 边界，标题右界越过 `1334px`（1:1 裁切线）、文字压入人脸框、或人像头部不完整，脚本直接报错退出并要求改 brief 重渲。同时自动导出 `cover_sheet.png` 四联缩略图供 200px 视口核验：
+> 3. **防压脸与裁切线自动检查（`exit 2`）**：渲染时自动测量版面边界，标题右界越过 `1334px`（1:1 裁切线）、文字压入人脸框、或人像头部不完整，脚本直接报错退出并要求改 brief 重渲。同时自动导出 `cover_sheet.png` 四联缩略图供 200px 视口核验：
 
 <p align="center">
   <img src="assets/showcase/11-cover-qa-sheet.png" alt="cover_sheet.png 四联缩略图与1:1方图自动验收单" width="92%" />
@@ -185,9 +185,9 @@ cd wechat-autopilot && bash install.sh
 
 市面上 90% 的写作 Prompt 产出的文章都有一股浓重的「AI 塑料味」：开头宏大叙事、满屏 Emoji、动辄「不是…而是…」「底层逻辑」「闭环抓手」、甚至为了凑案例自己编造客户和收入数字。
 
-本仓库用 **1 份唯一编辑契约 + 67 对真实改稿反推的审稿附录 + 3 个机械校验脚本** 把这些问题焊死在投递前：
+本仓库用 **1 份唯一编辑契约 + 67 对真实改稿反推的审稿附录 + 3 个自动质检脚本** 把这些问题消灭在投递前：
 
-### 5.1 事实基线锁死（防幻觉编造）
+### 5.1 核心事实自动核对（防幻觉编造）
 - 所有关于作者身份、学员数、客户数、课程定价、真实案例的描述，**只准从 `~/.config/wechat-autopilot/fact-baseline.md` 读取**。
 - 资料包里没有的数字一律标「待确认」，不准凭模型记忆编造；外部看到的案例一律以「我有一个朋友」转述，严禁把别人的公开分享写成自己的亲历战绩。
 
@@ -196,7 +196,7 @@ cd wechat-autopilot && bash install.sh
 - 严禁把「未登录」「抓不到」「工作台」「按 Skill」「media_id」「统一事实表」等内部排产黑话写进正文；正文只留干净结论、干净数字与读者能直接带走用的清单/框架。
 
 ### 5.3 从 67 对真实人工改稿反推的「七条文风判据」
-基于 Meta AI《Unslopping AI》实证，让大模型用通用标准自评时，AI 腔胜率高达 100%。因此我们在 `references/审稿判别附录.md` 中从 67 篇真实初稿 vs 终稿对照里提炼出 7 条机械判据：
+基于 Meta AI《Unslopping AI》实证，让大模型用通用标准自评时，AI 腔胜率高达 100%。因此我们在 `references/审稿判别附录.md` 中从 67 篇真实初稿 vs 终稿对照里提炼出 7 条客观判据：
 1. **开篇放现场**：前 3 段必须有具体的人在做具体的事，或一句引号里的真实原话，严禁以「很多人」「大多数人」开场。
 2. **小标题自带判断**：小标题抽出来连读必须是一条完整论证链（如 `03 第一个意外：贵的没有算对`），严禁纯名词标签（如 `二、核心数据`）。
 3. **重判断前有担保**：抛出核心论断前 3 行内，必须给出与该判断匹配的真实经历担保。
@@ -206,10 +206,10 @@ cd wechat-autopilot && bash install.sh
    - **结论冒号**（「说白了：」「一句话：」「核心就一条：」）全文 **≤ 6 处**
    - **三连顿号排比**（A、B、C 密集堆砌）全文 **≤ 4 处**
 
-### 5.4 三重机械硬闸（投递前必跑命令）
+### 5.4 三重自动质检（投递前必跑命令）
 
 ```bash
-# ① 文章结构与微信兼容硬闸（段落≤80字 / 图片数 / 重复标题 / 本地路径残留 / 禁用gradient乱码闸）
+# ① 文章结构与微信格式兼容检查（段落≤80字 / 图片数 / 重复标题 / 本地路径残留 / 零乱码校验）
 python3 skills/wechat-auto-publisher/scripts/validate_wechat_article.py \
   --article article.local-images.json --max-paragraph 80
 
@@ -227,8 +227,8 @@ python3 scripts/banned_word_audit.py 03-public-safe发布稿.md
 | 契合度 | 适用人群与业务场景 | 你能直接拿走什么 |
 | :---: | :--- | :--- |
 | **极高** | **一人公司 / 独立开发者 / AI 工具博主 / 知识付费与教培 / B 端咨询顾问** | 整条九步流水线开箱即用，一个人跑完「情报→写稿→截屏→封面→排版→草稿箱」，不用养编辑团队 |
-| **高** | **企业市场部 / 内容代运营团队 / 垂直行业老板写号** | 把主编脑子里的「审稿标准」固化成代码硬闸，实习生或新员工接手也不掉底线 |
-| **中** | **实体店获客 / 制造业出海 / 财税法律科普** | 骨架和校验器通用，只需按下方 5 步替换你的事实基线与行业黑话表 |
+| **高** | **企业市场部 / 内容代运营团队 / 垂直行业老板写号** | 把主编脑子里的「审稿标准」写成自动质检规则，实习生或新员工接手也不掉底线 |
+| **中** | **实体店获客 / 制造业出海 / 财税法律科普** | 骨架和校验器通用，只需按下方 5 步替换你的事实口径与行业词表 |
 
 ### 5 步改成你自己的品牌流水线
 
@@ -281,7 +281,7 @@ ln -s "$PWD" ~/.codex/skills/wechat-autopilot
 
 ### 4. 环境依赖
 
-- **Python 3.9+** + `Pillow` / `numpy` / `scipy` / `PyYAML`（封面图像处理与硬闸计算）
+- **Python 3.9+** + `Pillow` / `numpy` / `scipy` / `PyYAML`（封面图像处理与版面校验）
 - **Google Chrome 或 Chromium**（无头渲染封面与截取真实网页，可通过 `CHROME_BIN` 指定路径）
 - **中文字体**：仓库已内置开源超粗黑体 `NotoSansCJKsc-Black.otf`（SIL OFL 1.1 许可，开箱即用）
 - **公众号草稿投递（可选）**：需公众号主号 `AppID` / `AppSecret` 及配置了 IP 白名单的固定出口服务器（微信公众号 API 强制校验出口 IP 白名单）
@@ -314,9 +314,9 @@ workbuddy-wechat-autopilot/
 │   ├── aihot/                         # 1. 24小时中文 AI 资讯与热点同步（只读匿名 API）
 │   ├── ai-trending-topics/            # 2. 跨平台爆款选题挖掘与异常值拆解
 │   ├── content-planner/               # 3. 选题决策、三门槛评估与 6 变体标题生成
-│   ├── yuanliuwei-writer/             # 4. 第一人称实战派写稿（事实基线锁死 + 可带走成果）
+│   ├── yuanliuwei-writer/             # 4. 第一人称实战派写稿（核心事实核对 + 可带走成果）
 │   ├── article-illustrator/           # 5. 阅读节奏配图规划（真实截图卡 + 数据卡）
-│   ├── wechat-cover-skill/            # 6. 封面渲染引擎（6套杂志风 + 黑红金v2b + 几何硬闸）
+│   ├── wechat-cover-skill/            # 6. 封面渲染引擎（6套杂志风 + 黑红金v2b + 防压脸自动校验）
 │   ├── wechat-formatter/              # 7. 汇芯红六套排版骨架（100% 内联 CSS）
 │   ├── wechat-auto-publisher/         # 8. 工作台创建、Markdown→WeChat JSON 转换与结构校验
 │   └── ian-xiaohei-illustrations/     # 9. 手绘概念解释图（自动化主号默认关闭，保留备用）
@@ -360,7 +360,7 @@ workbuddy-wechat-autopilot/
 | [**workbuddy-wechat-autopilot**](https://github.com/sixwei2025/workbuddy-wechat-autopilot) | WorkBuddy 公众号九步全链路自动化总控（本仓库） | 开源 |
 <<<<<<< Updated upstream
 | [**ai-auto-wechat-publisher**](https://github.com/sixwei2025/ai-auto-wechat-publisher) | AI 全自动化公众号八段式方法论与模板库 | MIT |
-| [**wechat-cover-skill**](https://github.com/sixwei2025/wechat-cover-skill) | 公众号封面渲染引擎（封面六套 + 黑红金 + 几何硬闸） | MIT |
+| [**wechat-cover-skill**](https://github.com/sixwei2025/wechat-cover-skill) | 公众号封面渲染引擎（封面六套 + 黑红金 + 防压脸自动校验） | MIT |
 | [**gzh-million-layout-skill**](https://github.com/sixwei2025/gzh-million-layout-skill) | 公众号百万大号排版六套骨架 | MIT |
 | [**ai-tool-review-wechat-skill**](https://github.com/sixwei2025/ai-tool-review-wechat-skill) | 汇芯红六套排版骨架与 AI 工具测评工作流 | MIT |
 =======
