@@ -1,5 +1,9 @@
 # 更新日志
 
+## v1.2.1 · 2026-11-15
+
+- `install.sh` 增补 Windows Git Bash Chrome/Edge 探测；`record_app_window.py` 在 Windows / Linux 下输出 OBS / Xbox Game Bar 引导替代原生窗口抓拍报错；清理 README 合入标记。
+
 ## v1.0.0 · 2026-11-13
 
 - 建立可追踪的版本记录，README、Skill 文件和 Git 标签保持一致。

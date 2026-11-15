@@ -57,9 +57,13 @@ CHROME_FOUND=""
 for c in "${CHROME_BIN:-}" \
          "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
          "/Applications/Chromium.app/Contents/MacOS/Chromium" \
+         "/c/Program Files/Google/Chrome/Application/chrome.exe" \
+         "/c/Program Files (x86)/Google/Chrome/Application/chrome.exe" \
+         "/c/Program Files/Microsoft/Edge/Application/msedge.exe" \
          "$(command -v google-chrome 2>/dev/null || true)" \
-         "$(command -v chromium 2>/dev/null || true)"; do
-  if [ -n "$c" ] && [ -x "$c" ]; then
+         "$(command -v chromium 2>/dev/null || true)" \
+         "$(command -v msedge 2>/dev/null || true)"; do
+  if [ -n "$c" ] && [ -e "$c" ]; then
     CHROME_FOUND="$c"
     break
   fi

@@ -17,13 +17,10 @@
 把一个选题跑成微信公众号草稿箱里的成品：**热点选题 → 选题决策 → Public-Safe 写稿 → 真实截图配图 → 封面渲染 → 六套骨架排版 → 三重自动质检 → 固定 IP 草稿投递 → 数据复盘**。
 
 ```bash
-<<<<<<< Updated upstream
 # 方式 A：通过 skills CLI 一键安装（推荐，自动识别 Claude Code / Cursor / Codex / WorkBuddy）
 npx skills add sixwei2025/workbuddy-wechat-autopilot
 
 # 方式 B：克隆仓库并运行环境初始化与自检脚本
-=======
->>>>>>> Stashed changes
 git clone https://github.com/sixwei2025/workbuddy-wechat-autopilot.git wechat-autopilot
 cd wechat-autopilot && bash install.sh
 ```
@@ -34,7 +31,7 @@ cd wechat-autopilot && bash install.sh
 
 ## 版本记录
 
-当前版本：`v1.0.0` · 2026-11-13
+当前版本：`v1.2.1` · 2026-11-15
 完整变化记录见 [CHANGELOG.md](CHANGELOG.md)。
 
 
