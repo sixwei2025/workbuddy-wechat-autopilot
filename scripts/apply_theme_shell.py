@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from __future__ import annotations
 """把 markdown_to_wechat_article.py 产出的「基础版式」补成完整骨架。
 
 转换器只负责 token 化版式；主题专属的开篇封面 / 目录 / 章节标题 / END
@@ -236,6 +235,12 @@ END = (
     '</section></section>'
 )
 
+TRIPLE_CTA = (
+    '<p style="font-family:-apple-system,BlinkMacSystemFont,\'PingFang SC\',\'Hiragino Sans GB\',\'Microsoft YaHei\',sans-serif;'
+    'font-size:14px;color:#374151;line-height:1.9;letter-spacing:0.5px;margin:22px 20px 18px;text-align:center;">'
+    f'{LEAF}如果你觉得今天这篇有收获，欢迎</span><strong style="color:#C8102E;">{LEAF}点赞、在看、转发</span></strong>{LEAF}三连，我们下篇见。</span></p>'
+)
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -305,11 +310,22 @@ def main():
         print('找不到全局容器', file=sys.stderr)
         return 2
     c = m.group(1) + shell + c[m.end():]
+    poster_pat = re.compile(r'<p[^>]*>\s*<img[^>]+src="[^"]*ending-poster[^"]*"[^>]*>\s*</p>\s*', flags=re.I)
+    poster_m = poster_pat.search(c)
+    poster_html = ''
+    if poster_m:
+        poster_html = poster_m.group(0).strip()
+        c = poster_pat.sub('', c, count=1)
     idx = c.rfind('</section>')
-    c = c[:idx] + END + c[idx:]
+    tail = END
+    if '点赞、在看、转发' not in c:
+        tail += '\n' + TRIPLE_CTA
+    if poster_html:
+        tail += '\n' + poster_html
+    c = c[:idx] + tail + c[idx:]
     art['content'] = c
     Path(a.out).write_text(json.dumps(art, ensure_ascii=False), encoding='utf-8')
-    print(f'装配完成 [{a.theme}]: {n} 个章节标题 / 开篇封面 + 目录 + END / leaf={c.count(LEAF)}')
+    print(f'装配完成 [{a.theme}]: {n} 个章节标题 / 开篇封面 + 目录 + END + 三连 / leaf={c.count(LEAF)}')
     return 0
 
 

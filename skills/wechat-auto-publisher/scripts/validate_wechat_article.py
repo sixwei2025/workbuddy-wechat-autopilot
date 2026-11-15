@@ -182,6 +182,18 @@ def validate(article_path: Path, max_paragraph: int, require_xiaohei: bool | Non
         errors.append(f"bloated takeaway card: 发现超长 pre-wrap 灰框（{bloated_pre[0]} 字 > 320 字上限），请删掉与图片重复的文字框或精简为 1-3 行纯指令")
 
     imgs = image_sources(content)
+    if any("default-ending-poster.jpg" in src for src in imgs):
+        errors.append("deprecated ending poster: 已停用带二维码的旧喜报 default-ending-poster.jpg，请改用业务介绍海报 ending-poster-product.jpg")
+
+    if '<span leaf="">END</span>' in content or ">END</span>" in content:
+        end_pos = content.rfind("END</span>")
+        triple_pos = content.find("点赞、在看、转发")
+        if triple_pos == -1 or triple_pos < end_pos:
+            errors.append("missing or misordered triple CTA: 文末必须按「正文 → END → 三连引导（点赞、在看、转发） → 业务介绍海报」顺序排列")
+        poster_pos = content.find("ending-poster-product.jpg")
+        if poster_pos != -1 and (poster_pos < end_pos or (triple_pos != -1 and poster_pos < triple_pos)):
+            errors.append("misordered ending poster: ending-poster-product.jpg 必须放在 END 和三连引导之后")
+
     missing = [src for src in imgs if not local_image_exists(article_path, src)]
     if missing:
         errors.append("missing local content images: " + ", ".join(missing[:8]))
