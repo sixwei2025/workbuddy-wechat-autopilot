@@ -332,13 +332,11 @@ def quote_card_html(sentence: str) -> str:
 
 def stat_card_html(num: str, desc: str) -> str:
     return (
-        f'<section style="margin:20px {_T["pad"]};padding:18px;background:{_T["card_bg"]};'
-        f'border:1px solid {_T["card_bd"]};border-radius:{_T["radius"]};'
-        f'display:flex;align-items:baseline;">'
-        f'<p style="margin:0;flex:none;white-space:nowrap;{p_base()}font-size:34px;'
-        f'font-weight:800;color:{_T["red"]};">'
-        f'{inline(num)}</p>'
-        f'<p style="margin:0 0 0 12px;{p_base()}font-size:14px;color:{_T["grey"]};'
+        f'<section style="margin:20px {_T["pad"]};padding:18px 20px;background:{_T["card_bg"]};'
+        f'border:1px solid {_T["card_bd"]};border-radius:{_T["radius"]};">'
+        f'<p style="margin:0 0 6px;{p_base()}font-size:28px;line-height:1.25;'
+        f'font-weight:800;color:{_T["red"]};">{inline(num)}</p>'
+        f'<p style="margin:0;{p_base()}font-size:14px;color:{_T["grey"]};'
         f'line-height:1.6;">{inline(desc)}</p></section>'
     )
 
