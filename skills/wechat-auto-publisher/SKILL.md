@@ -69,7 +69,7 @@ author: 袁六伟 · 台州汇芯（公众号/视频号：袁六伟）
 5. 封面走 `wechat-cover-skill`（**2026-11-12 起换成六套主题，旧的「黑红金 v2b」废弃**）：先按内容结构选一套 —— `midnight` 午夜墨（数据复盘/搞钱）、`paper` 纸本墨（方法论/教程）、`kraft` 牛皮纸（个人经历/故事）、`indigo` 靛蓝瓷（AI工具/产品）、`swiss` 瑞士蓝（发布/清单/数据）、`brand` 汇芯红（通用，跟正文一致）。写 brief（`kicker` / `brand` / `title_lines` / `subtitle` / `author`）→ `scripts/render_cover_themes.py --brief <json> --themes <key> --out <dir>`，一次出横版 2350×1000 + 竖版 1080×1080，再缩 900×383 / 1:1 / 200px 三档。
    - 🔴 **真人照片绝不做黑白**（袁总原话「像我人已经去往西天了」），一律低饱和彩照，保留血色；要高级靠低饱和 + 纸感底 + 宋体 + 大留白，不靠抽颜色。
    - 🔴 **整个头必须完整在画面里**，只让身体底部出血，头顶留白 ≥40px。
-   - 🔴 **封面上不写期号编号**（`NO.03 / 2026.11` 这类是实现细节，不是内容）。
+   - 🔴 **封面上不写期号编号，也不写「台州汇芯」**（`NO.03 / 2026.11` 属于实现细节；`brand` 字段仅填产品/工具名或留空 `""`，不增加不必要信息）。
    - 脚本自带硬闸：文字右边界 ≤1334（1:1 裁切线）、标题不压脸（face_box 按抠像裁后尺寸重映射）、贴边 warning。报错就改 brief 重渲，不许关闸。只改正文时不重做已可用封面。
 6. 用 wechat-formatter 和 scripts/markdown_to_wechat_article.py 转换。图用 Markdown 图片或 [[img:文件名]] 指定位置；引用、任务说明合并轻块。依照用户2026-11-03要求，每篇正文最后默认插入 `assets/ending-poster-product.jpg`（《袁六伟 · 一人AI公司》无二维码业务介绍海报），复制到文章assets后实际上传，**不再配图注**，**停用带二维码的旧喜报 `default-ending-poster.jpg`**；用户明确取消或提供新图时按最新要求。其他未放置图片不能堆到文末。
    - **正文图 src 必须用 basename，不能带目录前缀**（2026-09-15 实际踩坑）：上传时兜底流程把正文图平铺 `scp` 到远端同一目录，远端校验器只按 `article_path.parent/src` 找图；src 写成 `assets/xx.png` → 远端找不到 → 校验 exit 2 → add 中止。本地文件仍可放 `assets/`，但 Markdown 图片引用与 `--content-image` 都要写 basename。
