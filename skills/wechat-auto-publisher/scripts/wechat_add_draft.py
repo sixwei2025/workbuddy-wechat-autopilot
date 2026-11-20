@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from __future__ import annotations
 
 import argparse
 import json
@@ -60,7 +59,8 @@ def multipart_file(field_name, file_path):
 
 def upload_thumb(access_token, thumb_path):
     boundary, body = multipart_file("media", thumb_path)
-    query = urllib.parse.urlencode({"access_token": access_token, "type": "thumb"})
+    # Use type=image (10MB limit, no 64KB thumb downscale) instead of type=thumb
+    query = urllib.parse.urlencode({"access_token": access_token, "type": "image"})
     return request_json(
         f"{API}/material/add_material?{query}",
         body,
